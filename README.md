@@ -7,3 +7,6 @@ pip install numpy pyrender trimesh imageio scikit-image
 ```
 
 The input parameters and descriptions can be found in the `init_args()` function. To change the camera pose in the viewer, see [viewer controls](https://github.com/mmatl/pyrender?tab=readme-ov-file#viewer-keyboard-and-mouse-controls). 
+
+Below are two GIF examples:
+<p align="center"><img src="Examples/house.gif" width="40%"> <img src="Examples/castle.gif" width="40%"></p>

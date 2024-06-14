@@ -17,7 +17,7 @@ def init_args():
                         help="number of rendered images to create the GIF")
     parser.add_argument("--image_duration", type=float, default=0.1,
                         help="duration of each image in the GIF")
-    parser.add_argument("--set_initial_camera_pose", type=bool, default=True)
+    parser.add_argument("--set_initial_camera_pose", type=bool, default=False)
     parser.add_argument("--camera_pose", type=str,
                         default="[[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]]",
                         help="camera pose (4*4 matrix) for the first image in the GIF")
@@ -25,7 +25,7 @@ def init_args():
                         help="brightness of light, in lux (lm/m^2).")
     parser.add_argument("--light_color", type=str, default="[1.0,1.0,1.0]",
                         help="RGB value for the light’s color in linear space")
-    parser.add_argument("--image_saturation", type=float, default=1.5,
+    parser.add_argument("--image_saturation", type=float, default=1.0,
                         help="saturation factor of the GIF. It's observed that sometimes rendered images are lower in saturation than expected")
 
 
@@ -84,7 +84,7 @@ def change_parameters(args):
     new_light_intensity=args.light_intensity
     count=0
     while True:
-        intensity_input = input("Enter new light intensity number (>0) or 'q' to quit): ")
+        intensity_input = input("Enter new light intensity number (>0) or 'q' to quit: ")
         if intensity_input.lower() == 'q':
             break
         try:

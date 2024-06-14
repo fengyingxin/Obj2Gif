@@ -17,6 +17,8 @@ def init_args():
                         help="number of rendered images to create the GIF")
     parser.add_argument("--image_duration", type=float, default=0.1,
                         help="duration of each image in the GIF")
+    parser.add_argument("--image_loops", type=float, default=0,
+                        help="number of loops in the GIF (set as 0 to allow looping endlessly)")
     parser.add_argument("--set_initial_camera_pose", type=bool, default=False)
     parser.add_argument("--camera_pose", type=str,
                         default="[[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]]",
@@ -131,7 +133,7 @@ def generate_gif(new_camera_pose,new_light_intensity,args):
     # render the scene from different angles
     r = pyrender.OffscreenRenderer(args.image_width, args.image_height)
     angle_step = 360 / args.num_frames
-    for i in range(args.num_frames+1):
+    for i in range(args.num_frames):
         # rotate the model clockwise
         angle = np.radians(-i * angle_step)
         rotation_matrix = np.array([
@@ -151,10 +153,10 @@ def generate_gif(new_camera_pose,new_light_intensity,args):
 
     # create a GIF from the rendered frames
     frames = []
-    for i in range(args.num_frames+1):
+    for i in range(args.num_frames):
         frame_path = os.path.join(args.frames_folder_path, f'frame_{i:03d}.png')
         frames.append(imageio.imread(frame_path))
-    imageio.mimsave(args.gif_path, frames, duration=args.image_duration)
+    imageio.mimsave(args.gif_path, frames, duration=args.image_duration, loop=args.image_loops)
     print(f"GIF saved to {args.gif_path}")
 
 
